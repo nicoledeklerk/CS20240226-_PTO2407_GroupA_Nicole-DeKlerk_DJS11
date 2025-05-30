@@ -19,15 +19,15 @@ export default function ShowDetailsPage() {
   const { favorites, toggleFavorite } = useFavorites();
   // Fetch show details using id from URL params //
   useEffect(() => {
-    setLoading(true);
-    fetch(`https://podcast-api.netlify.app/id/${showId}`)
+    setLoading(true); // loading state while initial data is being loaded //
+    fetch(`https://podcast-api.netlify.app/id/${showId}`) //Fetch specific show by ID from API //
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch show details");
         return res.json();
       })
       .then((data) => {
-        setShow(data);
-        setLoading(false);
+        setShow(data); // Sets show data in state //
+        setLoading(false); // Sets loading state to false once data is fetched //
       })
       .catch((err) => {
         setError(err.message);
@@ -41,7 +41,8 @@ export default function ShowDetailsPage() {
     setIsModalOpen(true);
   };
 
-  if (loading) return <p>Loading show details...</p>;
+  if (loading) return <p>Loading show details...</p>; // Displays loading state while initially fetching data //
+  if (loading) return <p>Loading...</p>; // loading state while new data is being loaded //
   if (error) return <p>Error: {error}</p>;
   if (!show) return <p>No show found</p>;
 

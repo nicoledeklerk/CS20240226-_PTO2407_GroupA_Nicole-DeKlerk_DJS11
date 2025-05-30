@@ -16,8 +16,8 @@ export default function HomePage() {
   const [sortMethod, setSortMethod] = useState("title-asc"); // Default sorting method is title A-Z //
 
   // Fetch show data from API //
-  useEffect(() => {
-    fetch('https://podcast-api.netlify.app')
+  useEffect(() => { // Fetches all show data when component mounts //
+    fetch('https://podcast-api.netlify.app') // Loads data from remote API //
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch shows');
         return res.json();
@@ -25,7 +25,7 @@ export default function HomePage() {
       .then((data) => {
         console.log('Fetched shows:', data);
         const sortedTitles = data.sort((a, b) => a.title.localeCompare(b.title));  // Default alphabetical sorting of titles //
-        setShows(sortedTitles);
+        setShows(sortedTitles); // stores show data in state //
         extractGenres(sortedTitles);
         setLoading(false);
       })
@@ -67,7 +67,7 @@ export default function HomePage() {
     }
   });
 
-  if (loading) return <p>Loading shows...</p>;
+  if (loading) return <p>Loading shows...</p>; //loading state while new data is being loaded //
   if (error) return <p>Error: {error}</p>;
 
   return (
