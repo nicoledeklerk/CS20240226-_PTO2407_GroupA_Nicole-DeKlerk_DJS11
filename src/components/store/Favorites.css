@@ -1,0 +1,12 @@
+.favorite-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #ffeaa7;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.favorite-button:hover {
+  background-color: #fdcb6e;
+}
