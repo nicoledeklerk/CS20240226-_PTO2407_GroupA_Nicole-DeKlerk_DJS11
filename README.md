@@ -53,7 +53,7 @@ This project was completed by Nicole Natalie de Klerk
 
 * GitHub: https://github.com/nicoledeklerk
 * Email: nicolenataliedeklerk@gmail.com
-* LinkedIn: in/nicole-natalie-de-klerk-6386032a2
+* LinkedIn: https://www.linkedin.com/in/nicole-natalie-de-klerk-6386032a2
 
 
 
