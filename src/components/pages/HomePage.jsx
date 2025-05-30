@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ShowCard from '../show/ShowCard';
+import ShowCard from '../show/ShowCard'; // includes preview image rendering //
 import GENRE_MAP from '../../data/genreMap';
 import ResetProgressButton from '../store/ResetProgressButton';
 import './HomePage.css'; 
