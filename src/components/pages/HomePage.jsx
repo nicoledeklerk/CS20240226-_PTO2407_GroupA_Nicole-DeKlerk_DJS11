@@ -13,7 +13,7 @@ export default function HomePage() {
   // State for filtering available genres and sorting //
   const [selectedGenre, setSelectedGenre] = useState("All");
   const [availableGenres, setAvailableGenres] = useState([]);
-  const [sortMethod, setSortMethod] = useState("title-asc");
+  const [sortMethod, setSortMethod] = useState("title-asc"); // Default sorting method is title A-Z //
 
   // Fetch show data from API //
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function HomePage() {
       })
       .then((data) => {
         console.log('Fetched shows:', data);
-        const sortedTitles = data.sort((a, b) => a.title.localeCompare(b.title));
+        const sortedTitles = data.sort((a, b) => a.title.localeCompare(b.title));  // Default alphabetical sorting of titles //
         setShows(sortedTitles);
         extractGenres(sortedTitles);
         setLoading(false);
