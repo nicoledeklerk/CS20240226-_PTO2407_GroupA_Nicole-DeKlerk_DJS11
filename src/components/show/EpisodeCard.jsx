@@ -10,6 +10,7 @@ export default function EpisodeCard({
   thumbnail,
 }) {
   const placeholderAudio =
+  // Placeholder audio URL for all episodes //
     "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
   const { favorites, toggleFavorite } = useFavorites();
 
@@ -41,6 +42,8 @@ export default function EpisodeCard({
     setIsCompleted(!!completed);
   }, [showId, season, episode.episode]);
 
+
+  // EpisodeCards with episode details & audio //
   return (
     <div className="episode-card">
       <h3 className="episode-title">
