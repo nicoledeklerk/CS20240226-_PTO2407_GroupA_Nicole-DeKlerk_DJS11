@@ -2,17 +2,17 @@ import './Season.css';
 import EpisodeCard from './EpisodeCard';
 
 export default function Season({ season, onClose, showId, showName }) {
-  console.log("Episodes in season:", season?.episodes);
   return (
     <div className="season-detail">
-      <button onClick={onClose} className="back-button">← Back to Show</button>
+      {/* User can click back to return to main show view  */}
+      <button onClick={onClose} className="back-button">← Back to Show</button> 
 
       <h2 className="season-title">Season {season?.season}</h2>
 
-      <div className="episode-list">
+      <div className="episode-list"> {/* Only renders selected episodes for the selected season */}
         {season?.episodes?.map((episode) => (
           <EpisodeCard
-            key={`${episode.episode}-${episode.title}`}
+            key={`${episode.episode}-${episode.title}`} /* Creates unique key using episode number & title */
             episode={episode}
             showId={showId}          
             showName={showName} 
