@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import "./FavoritesPage.css"; 
 
 export default function FavoritesPage() {
-  const { favorites, toggleFavorite } = useFavorites();
+  const { favorites, toggleFavorite } = useFavorites(); //Access the list of favourite episodes and toggle logic //
   const [sortMethod, setSortMethod] = useState("title-asc");
 
+  // State to manage the sorting method selected by the user //
   const sortedFavorites = [...favorites].sort((a, b) => {
     if (sortMethod === "title-asc") {
       return a.title.localeCompare(b.title);
@@ -20,6 +21,7 @@ export default function FavoritesPage() {
     return 0;
   });
 
+  // Group favorites episodes by show and season //
   const groupedFavorites = sortedFavorites.reduce((acc, ep) => {
     const key = `${ep.showName}||Season ${ep.season}`;
     if (!acc[key]) {
@@ -49,7 +51,7 @@ export default function FavoritesPage() {
         </div>
       )}
 
-      {favorites.length === 0 ? (
+      {favorites.length === 0 ? ( // Prompt user to add favorites //
         <div className="favorites-empty">
           <p>You haven’t added any favourite episodes yet.</p>
           <Link to="/" className="favorites-link">
@@ -57,6 +59,7 @@ export default function FavoritesPage() {
           </Link>
         </div>
       ) : (
+        // Group favorites by show & season //
         <div className="favorites-grouped-list">
           {Object.entries(groupedFavorites).map(([groupKey, episodes]) => {
             const [showTitle, seasonLabel] = groupKey.split('||');
@@ -68,7 +71,8 @@ export default function FavoritesPage() {
                     <div
                       key={`${ep.showId}-${ep.season}-${ep.episode}`}
                       className="episode-card"
-                    >
+                    > 
+                      {/* Show episode thumbnail*/}
                       {ep.thumbnail && (
                         <img
                           src={ep.thumbnail}
@@ -81,12 +85,14 @@ export default function FavoritesPage() {
                         S{ep.season}E{ep.episode}
                       </p>
 
+                      {/* Display the timestamp when show was made a favorite */}
                       {ep.addedAt && (
                         <p className="episode-added-at">
                           <em>Added: {new Date(ep.addedAt).toLocaleString()}</em>
                         </p>
                       )}
                       
+                      {/* Remove episode from favorites */}
                       <button
                         onClick={() => toggleFavorite(ep)}
                         className="remove-button"

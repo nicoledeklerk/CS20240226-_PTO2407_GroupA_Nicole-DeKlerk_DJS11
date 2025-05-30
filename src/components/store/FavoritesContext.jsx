@@ -1,8 +1,11 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
+// Context to manage the global state of favorite episodes //
 const FavoritesContext = createContext();
 
+// Provides access to favorites //
 export function FavoritesProvider({ children }) {
+  // Initialize favorites state from localStorage to persist user data across sessions //
   const [favorites, setFavorites] = useState(() => {
     try {
       const saved = localStorage.getItem("favorites");
@@ -12,7 +15,7 @@ export function FavoritesProvider({ children }) {
       return [];
     }
   });
-
+// Persists updated favorites on every change to localStorage //
   useEffect(() => {
     try {
       localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -21,8 +24,10 @@ export function FavoritesProvider({ children }) {
     }
   }, [favorites]);
 
+  // Add or remove episodes from favorites //
   const toggleFavorite = (episode) => {
     setFavorites((prev) => {
+      // Check if episode already exists in favorites  //
       const exists = prev.some(
         (fav) =>
           fav.showId === episode.showId &&
@@ -31,6 +36,7 @@ export function FavoritesProvider({ children }) {
       );
 
       if (exists) {
+        // If it exists, remove it from favorites //
         return prev.filter(
           (fav) =>
             !(
@@ -40,6 +46,7 @@ export function FavoritesProvider({ children }) {
             )
         );
       } else {
+        // if not present, add to favorites with a timestamp //
         const episodeWithTimestamp = {
           ...episode,
           addedAt: new Date().toISOString(), 
@@ -49,6 +56,7 @@ export function FavoritesProvider({ children }) {
     });
   };
 
+  // Check if an episode is in favorites //
   const isFavorite = (episode) =>
     favorites.some(
       (fav) =>
@@ -57,7 +65,7 @@ export function FavoritesProvider({ children }) {
         fav.episode === episode.episode
     );
 
-  return (
+  return ( // Provide the favorites list and helper functions to children components //
     <FavoritesContext.Provider
       value={{ favorites, toggleFavorite, isFavorite }}
     >
