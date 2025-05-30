@@ -8,7 +8,8 @@ import { useFavorites } from "../store/FavoritesContext";
 
 
 export default function ShowDetailsPage() {
-  const { showId } = useParams();
+  const { showId } = useParams(); // Extract showId from route parameters //
+
   const [show, setShow] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,7 +17,7 @@ export default function ShowDetailsPage() {
   const [error, setError] = useState(null);
 
   const { favorites, toggleFavorite } = useFavorites();
-
+  // Fetch show details using id from URL params //
   useEffect(() => {
     setLoading(true);
     fetch(`https://podcast-api.netlify.app/id/${showId}`)
@@ -34,6 +35,7 @@ export default function ShowDetailsPage() {
       });
   }, [showId]);
 
+  // Opens modal & sets selected season //
   const openModal = (season) => {
     setSelectedSeason(season);
     setIsModalOpen(true);
@@ -48,7 +50,8 @@ export default function ShowDetailsPage() {
       <h1 className="show-title">{show.title}</h1>
       <p className="show-descriptions">{show.description}</p>
 
-      <h2 className="section-heading">Seasons</h2>
+      {/* Displays seasons of show */}
+      <h2 className="section-heading">Seasons</h2> 
       <div className="season-grid">
         {show.seasons.map((season) => (
           <div
