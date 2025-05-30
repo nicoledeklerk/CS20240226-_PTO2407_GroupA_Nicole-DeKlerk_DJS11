@@ -24,6 +24,7 @@ export default function HomePage() {
       })
       .then((data) => {
         console.log('Fetched shows:', data);
+        // Sorts show list alphabetically from A to Z when "title-asc" is selected //
         const sortedTitles = data.sort((a, b) => a.title.localeCompare(b.title));  // Default alphabetical sorting of titles //
         setShows(sortedTitles); // stores show data in state //
         extractGenres(sortedTitles);
@@ -35,6 +36,7 @@ export default function HomePage() {
       });
   }, []);
 
+  // Extracts unique genres from shows and sets available genres for filtering //
   const extractGenres = (shows) => {
     const genreSet = new Set();
     shows.forEach((show) => {
@@ -45,23 +47,24 @@ export default function HomePage() {
   });
   setAvailableGenres(["All", ...Array.from(genreSet).sort()]);
 };
-
+  // Filter shows based on selected genre //
   const filteredShows =
     selectedGenre === "All"
       ? shows
       : shows.filter((show) => show.genres?.some((genreId) => GENRE_MAP[genreId] === selectedGenre)
       );
 
+  // Sort filtered shows based on filtering options //
   const sortedFilteredShows = [...filteredShows].sort((a, b) => {
     switch (sortMethod) {
       case "title-asc":
         return a.title.localeCompare(b.title);
       case "title-desc":
-        return b.title.localeCompare(a.title);
+        return b.title.localeCompare(a.title); // Sorts show list alphabetically from Z to A when "title-desc" is selected  
       case "date-newest":
-        return new Date(b.updated) - new Date(a.updated);
+        return new Date(b.updated) - new Date(a.updated); // Newest first //
       case "date-oldest":
-        return new Date(a.updated) - new Date(b.updated);
+        return new Date(a.updated) - new Date(b.updated); // Oldest first //
       default:
         return 0;
     }
