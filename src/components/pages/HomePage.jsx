@@ -5,15 +5,17 @@ import ResetProgressButton from '../store/ResetProgressButton';
 import './HomePage.css'; 
 
 export default function HomePage() {
+  // State for storing shows, loading state & potential error state //
   const [shows, setShows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // State for filtering available genres and sorting //
   const [selectedGenre, setSelectedGenre] = useState("All");
   const [availableGenres, setAvailableGenres] = useState([]);
-
   const [sortMethod, setSortMethod] = useState("title-asc");
 
+  // Fetch show data from API //
   useEffect(() => {
     fetch('https://podcast-api.netlify.app')
       .then((res) => {
